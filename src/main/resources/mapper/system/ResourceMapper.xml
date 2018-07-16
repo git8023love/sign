@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jeff.yue.system.dao.ResourceDao">
+<select id="findUserResourceByUserId" parameterType="LONG" resultType="com.jeff.yue.system.domain.Resource">
+    select distinct r.resource_id,r.parent_id,r.name,r.url,r.perms,r.type,r.icon,r.order_num,r.gmt_create,r.gmt_modified
+		from sys_resource r left join
+		sys_role_resource rr on r.resource_id = rr.resource_id
+		left join sys_user_role ur
+		on rr.role_id = ur.role_id where ur.user_id
+		= #{id}
+</select>
+</mapper>
